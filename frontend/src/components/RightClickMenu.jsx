@@ -1,8 +1,32 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRightClickContext } from "../context/RightClickContext";
 
 const RightClickMenu = () => {
   const { menuData, hideMenu } = useRightClickContext();
+  const [adjustedPosition, setAdjustedPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    if (menuData.visible) {
+      const menuWidth = 180; 
+      const menuHeight = menuData.options.length * 40;
+
+      let x = menuData.x;
+      let y = menuData.y;
+
+      const screenWidth = window.innerWidth;
+      const screenHeight = window.innerHeight;
+
+      if (x + menuWidth > screenWidth) {
+        x = screenWidth - menuWidth - 10; 
+      }
+
+      if (y + menuHeight > screenHeight) {
+        y = screenHeight - menuHeight - 10;
+      }
+
+      setAdjustedPosition({ x, y });
+    }
+  }, [menuData]);
 
   useEffect(() => {
     const handleClickOutside = () => {
@@ -17,7 +41,7 @@ const RightClickMenu = () => {
   return (
     <ul
       className="absolute bg-gray-800 text-white rounded shadow-lg z-50 py-2 w-44"
-      style={{ top: menuData.y, left: menuData.x }}
+      style={{ top: adjustedPosition.y, left: adjustedPosition.x }}
     >
       {menuData.options.map((opt, idx) => (
         <li
