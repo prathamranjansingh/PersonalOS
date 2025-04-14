@@ -4,7 +4,6 @@ import useRightClick from "../hooks/useRightClick";
 const Login = ({ onLogin }) => {
   const [password, setPassword] = useState("");
   const [dateTime, setDateTime] = useState({
-    day: "",
     date: "",
     time: "",
   });
@@ -34,9 +33,13 @@ const Login = ({ onLogin }) => {
 
     updateTime();
     const interval = setInterval(updateTime, 1000);
-
     return () => clearInterval(interval);
   }, []);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onLogin(password); // Call even if password is empty
+  };
 
   return (
     <div
@@ -46,10 +49,10 @@ const Login = ({ onLogin }) => {
         backgroundImage: "url('/img/wallpaper.png')",
       }}
     >
-  
+      {/* Glass overlay */}
       <div className="absolute inset-0 bg-black/30 backdrop-blur-sm" />
 
-
+      {/* Date and Time */}
       <div className="absolute top-10 w-full flex justify-center items-center z-10 text-white text-center">
         <div>
           <div className="text-xl font-medium">{dateTime.date}</div>
@@ -57,8 +60,12 @@ const Login = ({ onLogin }) => {
         </div>
       </div>
 
-      <div className="relative z-10 w-full h-full flex items-end justify-center ">
-        <div className="flex flex-col items-center mb-14">
+      {/* Login panel */}
+      <div className="relative z-10 w-full h-full flex items-end justify-center">
+        <form
+          onSubmit={handleSubmit}
+          className="flex flex-col items-center mb-14"
+        >
           <img
             src="https://i.pravatar.cc/150?img=3"
             alt="Avatar"
@@ -66,13 +73,13 @@ const Login = ({ onLogin }) => {
           />
 
           <input
-            type="text"
+            type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Enter Password"
             className="w-full px-4 py-1 mb-4 rounded-full bg-white/20 text-white placeholder-gray-300 focus:outline-none backdrop-blur-sm"
           />
-        </div>
+        </form>
       </div>
     </div>
   );

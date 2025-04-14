@@ -7,7 +7,7 @@ const RightClickMenu = () => {
 
   useEffect(() => {
     if (menuData.visible) {
-      const menuWidth = 180; 
+      const menuWidth = 180;
       const menuHeight = menuData.options.length * 40;
 
       let x = menuData.x;
@@ -16,10 +16,12 @@ const RightClickMenu = () => {
       const screenWidth = window.innerWidth;
       const screenHeight = window.innerHeight;
 
+      // Adjust horizontal position if overflowing right
       if (x + menuWidth > screenWidth) {
-        x = screenWidth - menuWidth - 10; 
+        x = screenWidth - menuWidth - 10;
       }
 
+      // Adjust vertical position if overflowing bottom
       if (y + menuHeight > screenHeight) {
         y = screenHeight - menuHeight - 10;
       }
@@ -40,7 +42,7 @@ const RightClickMenu = () => {
 
   return (
     <ul
-      className="absolute bg-gray-800 text-white rounded shadow-lg z-50 py-2 w-44"
+      className="fixed bg-gray-800 text-white rounded shadow-lg z-50 py-2 w-44 select-none"
       style={{ top: adjustedPosition.y, left: adjustedPosition.x }}
     >
       {menuData.options.map((opt, idx) => (
