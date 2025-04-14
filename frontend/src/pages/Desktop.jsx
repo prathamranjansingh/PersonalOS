@@ -13,7 +13,7 @@ const Desktop = () => {
       label: "Change Wallpaper", 
       onClick: () => {
         const wallpapers = [
-          "/wallpapers/default.jpg",
+          "/img/wallpaper1.jpg",
           "/wallpapers/mountains.jpg",
           "/wallpapers/ocean.jpg",
           "/wallpapers/forest.jpg"
@@ -65,7 +65,7 @@ const Desktop = () => {
       
       {/* Content with higher z-index to appear above the wallpaper */}
       <div className="relative z-10 flex-1 flex items-center justify-center">
-        <h1 className="text-4xl font-bold text-white drop-shadow-lg">Desktop Screen</h1>
+        
       </div>
 
       {/* Dock at the bottom */}
