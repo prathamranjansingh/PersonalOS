@@ -1,7 +1,7 @@
 import Dock from "../components/menu/Docks";
 import useRightClick from "../hooks/useRightClick";
 import { useState } from "react";
-
+import MenuBar from "../components/menu/MenuBar";
 const Desktop = () => {
   const [wallpaper, setWallpaper] = useState("/img/wallpaper.png"); // Default wallpaper path
   
@@ -35,7 +35,7 @@ const Desktop = () => {
     {
       id: 2,
       icon: "/icons/Terminal.png",
-      label: "Notes",
+      label: "Terminal",
       onClick: () => alert("Opening Notes"),
     },
     {
@@ -47,7 +47,7 @@ const Desktop = () => {
     {
       id: 4,
       icon: "/icons/Safari.png",
-      label: "Music",
+      label: "Safari",
       onClick: () => alert("Opening Music"),
     },
   ];
@@ -57,7 +57,6 @@ const Desktop = () => {
       onContextMenu={handleContextMenu}
       className="w-screen h-screen overflow-hidden text-white flex flex-col justify-between relative"
     >
-      {/* Wallpaper */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: `url(${wallpaper})` }}
@@ -65,10 +64,9 @@ const Desktop = () => {
       
       {/* Content with higher z-index to appear above the wallpaper */}
       <div className="relative z-10 flex-1 flex items-center justify-center">
-        
+        <MenuBar/>
       </div>
 
-      {/* Dock at the bottom */}
       <div className="relative z-10 w-full py-4 flex justify-center">
         <Dock items={dockItems} />
       </div>
